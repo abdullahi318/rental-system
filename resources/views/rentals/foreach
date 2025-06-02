@@ -1,0 +1,51 @@
+@foreach($students as $student)
+                <tr>
+                    <th scope="row">{{ $student->id }}</th>
+                    <td>{{ $student->full_name }}</td>
+                    <td>{{ $student->email }}</td>
+                    <td>{{ optional($student->department)->title }}</td>
+                    <td>{{ $student->gpa }}</td>
+                    <td><div class="d-inline-flex">
+                        <a class="btn btn-warning bt-sm mr-2" href="{{ route('students.show', $student) }}">View</a>
+                        <a class="btn btn-success bt-sm mr-2" href="{{ route('students.edit', $student) }}">Edit</a>
+                        <form class="d-flex" role="delete" method="POST" action="{{ route('students.delete',$student) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                        </form></div>
+                    </td>
+                </tr>
+                @endforeach
+
+
+
+                Route
+                 <!-- <li class="nav-item">
+                    <a class="nav-link" href="{{ route('departments.index') }}">Departments</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{ route('hostels.index') }}">Hostels</a>
+                </li> -->
+
+                        <div class="d-inline-flex">
+                            <a class="btn btn-success bt-sm mr-2" href="{{ route('faculties.edit', $faculty) }}">Edit</a>
+                            <form class="d-flex" role="delete" method="POST" action="{{ route('faculties.delete', $faculty) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                            </form>
+                        </div>
+
+            <!-- for option -->
+            <div class="mb-3">
+                <label for="status" class="form-label">Bicycle Status</label>
+                <select name="status" id="status">
+                    <option value="">Select Status</option>
+                    @foreach($statusOptions as $status)
+                        <option value="{{ $status->value }}">{{ $status->label() }}</option>
+                    @endforeach
+                </select>
+                @error('status')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
